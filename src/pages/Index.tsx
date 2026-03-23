@@ -129,11 +129,14 @@ function NavBar({ page, setPage }: { page: Page; setPage: (p: Page) => void }) {
   return (
     <nav className="nav-blur fixed top-0 left-0 right-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between h-16">
-        <button onClick={() => setPage("home")} className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: "var(--gold)" }}>
-            <Icon name="Film" size={16} className="text-black" />
+        <button onClick={() => setPage("home")} className="flex items-center gap-2.5">
+          <div className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: "var(--gold)" }}>
+            <Icon name="Tv" size={17} className="text-black" />
           </div>
-          <span className="font-cormorant text-xl font-bold text-gold-gradient">CineVault</span>
+          <div className="flex flex-col leading-none">
+            <span className="font-cormorant font-bold text-gold-gradient" style={{ fontSize: "1.25rem", lineHeight: 1.1 }}>Урал Синема</span>
+            <span className="font-golos font-semibold uppercase tracking-[0.18em]" style={{ fontSize: "0.6rem", color: "var(--text-dim)", letterSpacing: "0.2em" }}>ТВ</span>
+          </div>
         </button>
 
         <div className="hidden md:flex items-center gap-1">
@@ -841,12 +844,15 @@ export default function Index() {
       <footer className="py-10" style={{ borderTop: "1px solid rgba(201,168,76,0.08)" }}>
         <div className="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2">
-            <div className="w-6 h-6 rounded flex items-center justify-center" style={{ background: "var(--gold)" }}>
-              <Icon name="Film" size={12} className="text-black" />
+            <div className="w-6 h-6 rounded-lg flex items-center justify-center" style={{ background: "var(--gold)" }}>
+              <Icon name="Tv" size={12} className="text-black" />
             </div>
-            <span className="font-cormorant font-bold text-gold-gradient">CineVault</span>
+            <div className="flex flex-col leading-none">
+              <span className="font-cormorant font-bold text-gold-gradient" style={{ fontSize: "1rem", lineHeight: 1.1 }}>Урал Синема</span>
+              <span className="font-golos font-semibold uppercase tracking-widest" style={{ fontSize: "0.5rem", color: "var(--text-dim)" }}>ТВ</span>
+            </div>
           </div>
-          <p style={{ color: "var(--text-dim)", fontSize: "0.8rem" }}>© 2024 CineVault · Все права защищены</p>
+          <p style={{ color: "var(--text-dim)", fontSize: "0.8rem" }}>© 2024 Урал Синема ТВ · Все права защищены</p>
           <div className="flex gap-4">
             {["О нас", "Условия", "Конфиденциальность"].map(l => (
               <button key={l} className="text-xs transition-colors hover:text-yellow-400" style={{ color: "var(--text-dim)" }}>{l}</button>
