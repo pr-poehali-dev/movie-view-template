@@ -841,22 +841,50 @@ export default function Index() {
       {page === "profile" && <ProfilePage setPage={setPage} />}
       {page === "support" && <SupportPage />}
 
-      <footer className="py-10" style={{ borderTop: "1px solid rgba(201,168,76,0.08)" }}>
-        <div className="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-2">
-            <div className="w-6 h-6 rounded-lg flex items-center justify-center" style={{ background: "var(--gold)" }}>
-              <Icon name="Tv" size={12} className="text-black" />
+      <footer className="pt-10 pb-6" style={{ borderTop: "1px solid rgba(201,168,76,0.08)" }}>
+        <div className="max-w-7xl mx-auto px-6">
+          {/* Top row */}
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-6 mb-8">
+            {/* Logo */}
+            <div className="flex items-center gap-2">
+              <div className="w-6 h-6 rounded-lg flex items-center justify-center" style={{ background: "var(--gold)" }}>
+                <Icon name="Tv" size={12} className="text-black" />
+              </div>
+              <div className="flex flex-col leading-none">
+                <span className="font-cormorant font-bold text-gold-gradient" style={{ fontSize: "1rem", lineHeight: 1.1 }}>Урал Синема</span>
+                <span className="font-golos font-semibold uppercase tracking-widest" style={{ fontSize: "0.5rem", color: "var(--text-dim)" }}>ТВ</span>
+              </div>
             </div>
-            <div className="flex flex-col leading-none">
-              <span className="font-cormorant font-bold text-gold-gradient" style={{ fontSize: "1rem", lineHeight: 1.1 }}>Урал Синема</span>
-              <span className="font-golos font-semibold uppercase tracking-widest" style={{ fontSize: "0.5rem", color: "var(--text-dim)" }}>ТВ</span>
+
+            {/* Social links */}
+            <div className="flex items-center gap-2">
+              {[
+                { label: "Макс", emoji: "💬", href: "https://max.ru", hint: "Мессенджер Макс" },
+                { label: "WeChat", emoji: "🟢", href: "https://wechat.com", hint: "WeChat" },
+                { label: "GitHub", emoji: "⚫", href: "https://github.com", hint: "GitHub" },
+                { label: "TikTok", emoji: "🎵", href: "https://tiktok.com", hint: "TikTok" },
+              ].map(s => (
+                <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer"
+                  title={s.hint}
+                  className="social-link flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-medium transition-all duration-200"
+                  style={{ background: "var(--card-bg)", color: "var(--text-dim)", border: "1px solid rgba(201,168,76,0.1)" }}>
+                  <span>{s.emoji}</span>
+                  <span className="hidden sm:inline">{s.label}</span>
+                </a>
+              ))}
+            </div>
+
+            {/* Nav links */}
+            <div className="flex gap-4">
+              {["О нас", "Условия", "Конфиденциальность"].map(l => (
+                <button key={l} className="text-xs transition-colors hover:text-yellow-400" style={{ color: "var(--text-dim)" }}>{l}</button>
+              ))}
             </div>
           </div>
-          <p style={{ color: "var(--text-dim)", fontSize: "0.8rem" }}>© 2024 Урал Синема ТВ · Все права защищены</p>
-          <div className="flex gap-4">
-            {["О нас", "Условия", "Конфиденциальность"].map(l => (
-              <button key={l} className="text-xs transition-colors hover:text-yellow-400" style={{ color: "var(--text-dim)" }}>{l}</button>
-            ))}
+
+          {/* Bottom copyright */}
+          <div className="text-center pt-4" style={{ borderTop: "1px solid rgba(201,168,76,0.05)" }}>
+            <p style={{ color: "var(--text-dim)", fontSize: "0.75rem" }}>© 2024 Урал Синема ТВ · Все права защищены</p>
           </div>
         </div>
       </footer>
