@@ -32,8 +32,41 @@ const HISTORY = [
   { id: 3, title: "Ночной Дрейф", progress: 42, poster: POSTER_3, watched: "3 дня назад" },
 ];
 
+const TV_CHANNELS = [
+  { id: 1, name: "Первый канал", category: "Новости", emoji: "📺", current: "Вечерние новости", next: "Прямой эфир 21:00", viewers: "2.1М", color: "#c9312f", live: true },
+  { id: 2, name: "Россия 1", category: "Новости", emoji: "🇷🇺", current: "Вести недели", next: "Документальный фильм", viewers: "1.8М", color: "#1a5ea8", live: true },
+  { id: 3, name: "НТВ", category: "Новости", emoji: "🔴", current: "Чрезвычайное происшествие", next: "НТВ Утром", viewers: "980К", color: "#e6b800", live: true },
+  { id: 4, name: "Матч ТВ", category: "Спорт", emoji: "⚽", current: "Лига Чемпионов: Прямой эфир", next: "Послематчевый стадион", viewers: "3.2М", color: "#ff5500", live: true },
+  { id: 5, name: "Eurosport", category: "Спорт", emoji: "🏅", current: "Теннис. Roland Garros", next: "Велоспорт. Тур де Франс", viewers: "540К", color: "#004b9d", live: true },
+  { id: 6, name: "Спорт 1", category: "Спорт", emoji: "🏒", current: "Хоккей. КХЛ", next: "Спортивный обзор", viewers: "720К", color: "#00875a", live: false },
+  { id: 7, name: "ТНТ", category: "Развлечения", emoji: "😂", current: "Камеди Клаб", next: "Битва экстрасенсов", viewers: "1.5М", color: "#8b2fc9", live: true },
+  { id: 8, name: "СТС", category: "Развлечения", emoji: "🎭", current: "Воронины", next: "Папины дочки", viewers: "890К", color: "#e63c7a", live: true },
+  { id: 9, name: "Пятница", category: "Развлечения", emoji: "🎉", current: "Орёл и Решка", next: "Ревизорро", viewers: "670К", color: "#ff7700", live: false },
+  { id: 10, name: "Кино ТВ", category: "Кино", emoji: "🎬", current: "Тихий Дон", next: "Мастер и Маргарита", viewers: "450К", color: "#c9a84c", live: true },
+  { id: 11, name: "Мосфильм. Золотая коллекция", category: "Кино", emoji: "🎞️", current: "Белое солнце пустыни", next: "Операция «Ы»", viewers: "320К", color: "#6b4c8a", live: true },
+  { id: 12, name: "Культура", category: "Культура", emoji: "🎨", current: "Абсолютный слух", next: "Острова", viewers: "280К", color: "#2e7d6e", live: false },
+  { id: 13, name: "Музыка Первого", category: "Музыка", emoji: "🎵", current: "Живой концерт", next: "Ретро FM", viewers: "410К", color: "#c94c8a", live: true },
+  { id: 14, name: "МузТВ", category: "Музыка", emoji: "🎶", current: "ТОП-100 клипов", next: "МузТВ Хиты", viewers: "560К", color: "#4c8ac9", live: true },
+  { id: 15, name: "Живая природа", category: "Документальные", emoji: "🦁", current: "Дикая Африка", next: "Голубая планета", viewers: "380К", color: "#5a8a2e", live: false },
+  { id: 16, name: "National Geographic", category: "Документальные", emoji: "🌍", current: "Мегазаводы", next: "Авиакатастрофы", viewers: "490К", color: "#ffb800", live: true },
+  { id: 17, name: "Nickelodeon", category: "Детские", emoji: "👦", current: "Черепашки-ниндзя", next: "SpongeBob", viewers: "920К", color: "#ff7a00", live: true },
+  { id: 18, name: "Карусель", category: "Детские", emoji: "🎠", current: "Маша и Медведь", next: "Смешарики", viewers: "1.1М", color: "#e63c3c", live: true },
+];
+
+const TV_CATEGORIES = [
+  { id: "Все", label: "Все каналы", icon: "Tv" },
+  { id: "Новости", label: "Новости", icon: "Newspaper" },
+  { id: "Спорт", label: "Спорт", icon: "Trophy" },
+  { id: "Развлечения", label: "Развлечения", icon: "Smile" },
+  { id: "Кино", label: "Кино", icon: "Film" },
+  { id: "Культура", label: "Культура", icon: "Music" },
+  { id: "Музыка", label: "Музыка", icon: "Music2" },
+  { id: "Документальные", label: "Докумен.", icon: "Globe" },
+  { id: "Детские", label: "Детские", icon: "Star" },
+];
+
 type Movie = typeof MOVIES_DATA[0];
-type Page = "home" | "genres" | "search" | "collection" | "profile" | "support";
+type Page = "home" | "genres" | "search" | "collection" | "profile" | "support" | "tv";
 
 // ─── MOVIE CARD ─────────────────────────────────────────────────────────
 function MovieCard({ movie, onToggleFav }: { movie: Movie; onToggleFav: (id: number) => void }) {
@@ -87,7 +120,8 @@ function NavBar({ page, setPage }: { page: Page; setPage: (p: Page) => void }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const navItems: { id: Page; label: string; icon: string }[] = [
     { id: "home", label: "Главная", icon: "Home" },
-    { id: "genres", label: "Жанры", icon: "Layers" },
+    { id: "genres", label: "Фильмы", icon: "Layers" },
+    { id: "tv", label: "ТВ", icon: "Tv" },
     { id: "search", label: "Поиск", icon: "Search" },
     { id: "collection", label: "Коллекция", icon: "Bookmark" },
     { id: "profile", label: "Профиль", icon: "User" },
@@ -637,6 +671,152 @@ function SupportPage() {
   );
 }
 
+// ─── TV PAGE ─────────────────────────────────────────────────────────────
+function TVPage() {
+  const [activeCategory, setActiveCategory] = useState("Все");
+  const [search, setSearch] = useState("");
+
+  const filtered = TV_CHANNELS.filter(ch => {
+    const matchCat = activeCategory === "Все" || ch.category === activeCategory;
+    const matchSearch = ch.name.toLowerCase().includes(search.toLowerCase()) ||
+      ch.current.toLowerCase().includes(search.toLowerCase());
+    return matchCat && matchSearch;
+  });
+
+  const liveCount = TV_CHANNELS.filter(c => c.live).length;
+
+  return (
+    <div className="pt-24 max-w-7xl mx-auto px-4 sm:px-6 pb-16">
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
+        <div>
+          <div className="flex items-center gap-3 mb-2">
+            <h1 className="font-cormorant text-4xl font-bold section-title" style={{ color: "#e8dfc4" }}>ТВ-каналы</h1>
+            <span className="flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold animate-pulse"
+              style={{ background: "rgba(255,60,60,0.15)", color: "#ff5050", border: "1px solid rgba(255,60,60,0.3)" }}>
+              <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse inline-block" />
+              {liveCount} в эфире
+            </span>
+          </div>
+          <p style={{ color: "var(--text-dim)", fontSize: "0.85rem" }}>{TV_CHANNELS.length} каналов · смотри бесплатно</p>
+        </div>
+        {/* Search */}
+        <div className="relative w-full sm:w-72">
+          <div className="absolute left-3 top-1/2 -translate-y-1/2" style={{ color: "var(--gold)" }}>
+            <Icon name="Search" size={15} />
+          </div>
+          <input className="input-cinema w-full py-2.5 pl-9 pr-4 rounded-xl text-sm"
+            placeholder="Канал или передача..."
+            value={search} onChange={e => setSearch(e.target.value)} />
+        </div>
+      </div>
+
+      {/* Category tabs */}
+      <div className="flex flex-wrap gap-2 mb-8">
+        {TV_CATEGORIES.map(cat => {
+          const count = cat.id === "Все" ? TV_CHANNELS.length : TV_CHANNELS.filter(c => c.category === cat.id).length;
+          return (
+            <button key={cat.id} onClick={() => setActiveCategory(cat.id)}
+              className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200"
+              style={{
+                background: activeCategory === cat.id ? "var(--gold)" : "var(--card-bg)",
+                color: activeCategory === cat.id ? "#080c12" : "var(--text-dim)",
+                border: `1px solid ${activeCategory === cat.id ? "var(--gold)" : "rgba(201,168,76,0.12)"}`,
+              }}>
+              <Icon name={cat.icon} size={13} />
+              {cat.label}
+              <span className="text-xs opacity-70">{count}</span>
+            </button>
+          );
+        })}
+      </div>
+
+      {/* Grid */}
+      {filtered.length === 0 ? (
+        <div className="text-center py-20" style={{ color: "var(--text-dim)" }}>
+          <Icon name="Tv" size={48} className="mx-auto mb-4 opacity-20" />
+          <p className="font-cormorant text-xl" style={{ color: "#e8dfc4" }}>Ничего не найдено</p>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {filtered.map((ch, i) => (
+            <div key={ch.id}
+              className={`tv-channel-card group relative rounded-2xl overflow-hidden cursor-pointer animate-fade-in stagger-${Math.min(i % 6 + 1, 6)}`}
+              style={{ background: "var(--card-bg)", border: "1px solid rgba(201,168,76,0.08)" }}>
+
+              {/* Top colored stripe */}
+              <div className="absolute top-0 left-0 right-0 h-0.5" style={{ background: ch.color }} />
+
+              <div className="p-4">
+                <div className="flex items-start justify-between gap-3">
+                  {/* Logo block */}
+                  <div className="flex items-center gap-3 flex-1 min-w-0">
+                    <div className="w-12 h-12 rounded-xl flex items-center justify-center text-2xl flex-shrink-0 font-bold"
+                      style={{ background: `${ch.color}22`, border: `1px solid ${ch.color}44` }}>
+                      {ch.emoji}
+                    </div>
+                    <div className="min-w-0">
+                      <h3 className="font-cormorant font-bold text-lg leading-tight truncate" style={{ color: "#e8dfc4" }}>{ch.name}</h3>
+                      <span className="text-xs px-2 py-0.5 rounded-full"
+                        style={{ background: "rgba(201,168,76,0.08)", color: "var(--gold)" }}>
+                        {ch.category}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* LIVE / Offline badge */}
+                  {ch.live ? (
+                    <span className="flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold flex-shrink-0"
+                      style={{ background: "rgba(255,60,60,0.15)", color: "#ff5050", border: "1px solid rgba(255,60,60,0.25)" }}>
+                      <span className="w-1.5 h-1.5 rounded-full bg-red-500 inline-block" style={{ animation: "pulse 1.5s infinite" }} />
+                      LIVE
+                    </span>
+                  ) : (
+                    <span className="px-2.5 py-1 rounded-full text-xs flex-shrink-0"
+                      style={{ background: "rgba(107,122,153,0.15)", color: "var(--text-dim)" }}>
+                      Эфир скоро
+                    </span>
+                  )}
+                </div>
+
+                {/* Now playing */}
+                <div className="mt-4 p-3 rounded-xl" style={{ background: "rgba(0,0,0,0.25)" }}>
+                  <div className="flex items-center gap-1.5 mb-1">
+                    <Icon name="Play" size={11} style={{ color: ch.live ? "#ff5050" : "var(--text-dim)" }} />
+                    <span className="text-xs font-semibold uppercase tracking-wider"
+                      style={{ color: ch.live ? "#ff7070" : "var(--text-dim)" }}>
+                      {ch.live ? "Сейчас" : "Далее"}
+                    </span>
+                  </div>
+                  <p className="text-sm font-medium leading-snug" style={{ color: "#d4c9a8" }}>{ch.current}</p>
+                </div>
+
+                {/* Next programme */}
+                <div className="mt-2 flex items-center gap-2 px-1">
+                  <Icon name="Clock" size={11} style={{ color: "var(--text-dim)" }} />
+                  <p className="text-xs truncate" style={{ color: "var(--text-dim)" }}>Следующее: {ch.next}</p>
+                </div>
+
+                {/* Footer */}
+                <div className="mt-4 flex items-center justify-between">
+                  <div className="flex items-center gap-1.5" style={{ color: "var(--text-dim)", fontSize: "0.78rem" }}>
+                    <Icon name="Users" size={11} />
+                    {ch.viewers} зрителей
+                  </div>
+                  <button className="btn-gold px-4 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1.5 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-1 group-hover:translate-y-0">
+                    <Icon name="Tv" size={11} />
+                    Смотреть
+                  </button>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 // ─── ROOT ────────────────────────────────────────────────────────────────
 export default function Index() {
   const [page, setPage] = useState<Page>("home");
@@ -652,6 +832,7 @@ export default function Index() {
 
       {page === "home" && <HomePage movies={movieList} onToggleFav={toggleFav} setPage={setPage} />}
       {page === "genres" && <GenresPage movies={movieList} onToggleFav={toggleFav} />}
+      {page === "tv" && <TVPage />}
       {page === "search" && <SearchPage />}
       {page === "collection" && <CollectionPage movies={movieList} onToggleFav={toggleFav} />}
       {page === "profile" && <ProfilePage setPage={setPage} />}
